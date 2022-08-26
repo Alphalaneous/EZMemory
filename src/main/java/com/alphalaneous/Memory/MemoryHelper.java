@@ -27,15 +27,6 @@ public class MemoryHelper {
     private long appBase;
     private WinNT.HANDLE hProcess;
 
-    public static void main(String...args){
-
-        MemoryHelper geometryDashMemory = new MemoryHelper("GeometryDash.exe" /*exe name*/ , 0x3222d0 /* base address*/);
-
-        geometryDashMemory.injectDLL("C:/Users/Ashton/Documents/coolMod.dll");
-
-    }
-
-
     public MemoryHelper(String exeName, long base){
         this.exeName = exeName;
         this.base = base;
