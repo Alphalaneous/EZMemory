@@ -9,7 +9,7 @@ Easy Memory Reading and Writing using **JNA**
     int[] xPosOffsets = new int[]{0x164, 0x224, 0x67C};  
     int[] levelNameOffsets = new int[]{0x164, 0x22C, 0x114, 0xFC};  
       
-    float xPos = geometryDashMemory.read(xPosOffsets, 4 /* bytes to read */).getFloat(0);  
+    float xPos = geometryDashMemory.read(xPosOffsets, 4 /* how many bytes to read */).getFloat(0);  
     String levelName = geometryDashMemory.readString(levelNameOffsets);
 
 ## Example: Writing Memory
@@ -19,8 +19,8 @@ Easy Memory Reading and Writing using **JNA**
     int[] xPosOffsets = new int[]{0x164, 0x224, 0x67C};  
     int[] yPosOffsets = new int[]{0x164, 0x224, 0x680};  
       
-    geometryDashMemory.writeFloat(xPosOffsets, 4 /* bytes to write */);  
-    geometryDashMemory.writeFloat(yPosOffsets, 4 /* bytes to write */);
+    geometryDashMemory.writeFloat(xPosOffsets, 69 /* bytes to write */);  
+    geometryDashMemory.writeFloat(yPosOffsets, 420 /* bytes to write */);
 
 ## Example: Injecting a DLL
 
