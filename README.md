@@ -1,6 +1,6 @@
 # EZMemory
 
-Easy Memory Reading and Writing using **JNA**
+Easy Memory Reading and Writing on Windows using **JNA**
 
 ## Example: Reading Memory
 
