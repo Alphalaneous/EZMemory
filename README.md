@@ -41,7 +41,7 @@ SmartyPants converts ASCII punctuation characters into "smart" typographic punct
 |`getExeName()`									|Returns the exe name of the process |
 |`isOpen()`											|Returns true if the process is open |
 |`isInFocus()`								  |Returns whether the process is in focus or not |
-|`read(int[] offsets, int bytesToRead)` | Reads a value from memory | 
+|`read(int[] offsets, int bytesToRead)` \|\| `read(long address, int bytesToRead)` | Reads a value from memory | 
 |`readString(long address)` \|\| `readString(int[] offsets)` | Reads a String from memory | 
 |`writeBytes(int[] offsets, byte[] value)` | Writes bytes to offsets|
 |`writeInt(int[] offsets, int value)` | Writes an int to offsets|
