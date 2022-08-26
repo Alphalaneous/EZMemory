@@ -25,8 +25,16 @@ public class MemoryHelper {
     private final String exeName;
     private int PID;
     private long appBase;
-    private boolean isOpen = false;
     private WinNT.HANDLE hProcess;
+
+    public static void main(String...args){
+
+        MemoryHelper geometryDashMemory = new MemoryHelper("GeometryDash.exe" /*exe name*/ , 0x3222d0 /* base address*/);
+
+        geometryDashMemory.injectDLL("C:/Users/Ashton/Documents/coolMod.dll");
+
+    }
+
 
     public MemoryHelper(String exeName, long base){
         this.exeName = exeName;
@@ -63,7 +71,11 @@ public class MemoryHelper {
     }
 
     public boolean isOpen(){
-        return isOpen;
+        WinNT.HANDLE snapshot = kernel32.CreateToolhelp32Snapshot(Tlhelp32.TH32CS_SNAPPROCESS, new WinDef.DWORD(0));
+        Tlhelp32.PROCESSENTRY32.ByReference processEntry = new Tlhelp32.PROCESSENTRY32.ByReference();
+        while (kernel32.Process32Next(snapshot, processEntry)) if(new String(processEntry.szExeFile).equalsIgnoreCase(exeName)) break;
+        kernel32.CloseHandle(snapshot);
+        return !new String(processEntry.szExeFile).equalsIgnoreCase(exeName);
     }
 
     public boolean isInFocus(){
@@ -82,7 +94,7 @@ public class MemoryHelper {
 
     public Memory read(int[] offsets, int bytesToRead) {
         long addr = findDynAddress(offsets, appBase);
-        return readMemory(addr, bytesToRead);
+        return read(addr, bytesToRead);
     }
 
     public String readString(long address){
@@ -95,13 +107,13 @@ public class MemoryHelper {
     }
     
     private String getString(long address) {
-        int length = readMemory(address + 0x10, 32).getInt(0);
+        int length = read(address + 0x10, 32).getInt(0);
 
         String string;
 
         try {
-            if (length >= 16) string = readMemory(readMemory(address, 32).getInt(0), length).getString(0);
-            else string = readMemory(address, 32).getString(0).substring(0, length);
+            if (length >= 16) string = read(read(address, 32).getInt(0), length).getString(0);
+            else string = read(address, 32).getString(0).substring(0, length);
         }
         catch (StringIndexOutOfBoundsException e){
             return null;
@@ -114,7 +126,7 @@ public class MemoryHelper {
         return string;
     }
 
-    private Memory readMemory(long address, int bytesToRead) {
+    public Memory read(long address, int bytesToRead) {
         IntByReference read = new IntByReference(0);
         Memory output = new Memory(bytesToRead);
         kernel32.ReadProcessMemory(hProcess, Pointer.createConstant(address), output, bytesToRead, read);
@@ -174,10 +186,8 @@ public class MemoryHelper {
         while (kernel32.Process32Next(snapshot, processEntry)) if(new String(processEntry.szExeFile).equalsIgnoreCase(exeName)) break;
         kernel32.CloseHandle(snapshot);
         if(!new String(processEntry.szExeFile).equalsIgnoreCase(exeName)) {
-            isOpen = false;
             return null;
         }
-        isOpen = true;
         PID = processEntry.th32ProcessID.intValue();
         appBase = GetModuleBaseAddress(processEntry.th32ProcessID.intValue()) + base;
         return kernel32.OpenProcess(56, true, processEntry.th32ProcessID.intValue());
