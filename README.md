@@ -4,29 +4,29 @@ Easy Memory Reading and Writing on Windows using **JNA**
 
 ## Example: Reading Memory
 ```java
-    MemoryHelper geometryDashMemory = new MemoryHelper("GeometryDash.exe" /* exe name */ , 0x3222d0 /* base address */);  
+MemoryHelper geometryDashMemory = new MemoryHelper("GeometryDash.exe" /* exe name */ , 0x3222d0 /* base address */);  
       
-    int[] xPosOffsets = new int[]{0x164, 0x224, 0x67C};  
-    int[] levelNameOffsets = new int[]{0x164, 0x22C, 0x114, 0xFC};  
+int[] xPosOffsets = new int[]{0x164, 0x224, 0x67C};  
+int[] levelNameOffsets = new int[]{0x164, 0x22C, 0x114, 0xFC};  
       
-    float xPos = geometryDashMemory.read(xPosOffsets, 4 /* how many bytes to read */).getFloat(0);  
-    String levelName = geometryDashMemory.readString(levelNameOffsets);
+float xPos = geometryDashMemory.read(xPosOffsets, 4 /* how many bytes to read */).getFloat(0);  
+String levelName = geometryDashMemory.readString(levelNameOffsets);
 ```
 ## Example: Writing Memory
 ```java
-    MemoryHelper geometryDashMemory = new MemoryHelper("GeometryDash.exe" /*exe name*/ , 0x3222d0 /* base address*/);  
+MemoryHelper geometryDashMemory = new MemoryHelper("GeometryDash.exe" /*exe name*/ , 0x3222d0 /* base address*/);  
       
-    int[] xPosOffsets = new int[]{0x164, 0x224, 0x67C};  
-    int[] yPosOffsets = new int[]{0x164, 0x224, 0x680};  
+int[] xPosOffsets = new int[]{0x164, 0x224, 0x67C};  
+int[] yPosOffsets = new int[]{0x164, 0x224, 0x680};  
       
-    geometryDashMemory.writeFloat(xPosOffsets, 69f /* value to write */);  
-    geometryDashMemory.writeFloat(yPosOffsets, 420f /* value to write */);
+geometryDashMemory.writeFloat(xPosOffsets, 69f /* value to write */);  
+geometryDashMemory.writeFloat(yPosOffsets, 420f /* value to write */);
 ```
 ## Example: Injecting a DLL
 ```java
-    MemoryHelper geometryDashMemory = new MemoryHelper("GeometryDash.exe" /*exe name*/ , 0x3222d0 /* base address */);  
+MemoryHelper geometryDashMemory = new MemoryHelper("GeometryDash.exe" /*exe name*/ , 0x3222d0 /* base address */);  
       
-    geometryDashMemory.injectDLL("C:/Users/Ashton/Documents/coolMod.dll");
+geometryDashMemory.injectDLL("C:/Users/Ashton/Documents/coolMod.dll");
 ```
 ## Methods
 
