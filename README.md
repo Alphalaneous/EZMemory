@@ -30,8 +30,6 @@ geometryDashMemory.injectDLL("C:/Users/Ashton/Documents/coolMod.dll");
 ```
 ## Methods
 
-SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
-
 |Method                         |          Purpose            |
 |-------------------------------|-----------------------------|
 |`getProcess()`                 |Returns the Process Handle   |
