@@ -22,7 +22,7 @@ Easy Memory Reading and Writing using **JNA**
     geometryDashMemory.writeFloat(xPosOffsets, 4 /* bytes to write */);  
     geometryDashMemory.writeFloat(yPosOffsets, 4 /* bytes to write */);
 
-## Example: Injecting a dll
+## Example: Injecting a DLL
 
     MemoryHelper geometryDashMemory = new MemoryHelper("GeometryDash.exe" /*exe name*/ , 0x3222d0 /* base address */);  
       
